@@ -1,7 +1,16 @@
 #import <ActionMenu/ActionMenu.h>
+#import <CoreFoundation/CFUserNotification.h>
 
 #define errEq(x,y) [x isEqualToString:y]
-#define alrt(x) UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Bitly for Action Menu" message:x delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil]; [alert show];[alert release];
+//#define alrt(x) UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Bitly for Action Menu" message:x delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil]; [alert show];[alert release];
+#define alrt(x) do { \
+	NSDictionary *fields = @{(id)kCFUserNotificationAlertHeaderKey: @"Bitly for Action Menu", \
+		(id)kCFUserNotificationAlertMessageKey: x, \
+		(id)kCFUserNotificationDefaultButtonTitleKey : @"Ok"}; \
+	CFUserNotificationRef notificationRef = CFUserNotificationCreate(kCFAllocatorDefault, 0, kCFUserNotificationNoteAlertLevel, NULL, (CFDictionaryRef)fields); \
+	CFRelease(notificationRef); \
+} \
+while(0)
 
 static NSString *settingsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"/Library/Preferences/com.sassoty.bitlyforactionmenu.plist"];
 static NSMutableDictionary *prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:settingsPath];
