@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Settings</string>
+			<key>footerAlignment</key>
+			<integer>1</integer>
+			<key>footerText</key>
+			<string>To get the access token, go to http://bitly.com/a/oauth_apps (or click below) and enter your password. Then hit the "Generate Token" button, and type the long string of numbers and letters in the box above (Sorry :P)</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>detail</key>
+			<string>PSDetailController</string>
+			<key>PostNotification</key>
+			<string>com.sassoty.bitlyforactionmenu/preferencechanged</string>
+			<key>defaults</key>
+			<string>com.sassoty.bitlyforactionmenu</string>
+			<key>key</key>
+			<string>accesstoken</string>
+			<key>label</key>
+			<string>Access Token:</string>
+			<key>placeholder</key>
+			<string>Enter Access Token</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string>Link</string>
+			<key>footerAlignment</key>
+			<integer>1</integer>
+			<key>footerText</key>
+			<string>Clicking above will take you to the page to retrieve your access token (you must sign in to your account first on that page)</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>http://bitly.com/a/oauth_apps</string>
+			<key>action</key>
+			<string>openLink</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerAlignment</key>
+			<integer>1</integer>
+			<key>footerText</key>
+			<string>Bitly for Action Menu © 2014 Noah Saso</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>BitlyforActionMenu</string>
+</dict>
+</plist>

@@ -1,0 +1,10 @@
+{
+    entry = {
+	bundle = BitlyforActionMenu;
+	cell = PSLinkCell;
+	detail = BitlyforActionMenuListController;
+	icon = BitlyforActionMenu.png;
+	isController = 1;
+	label = BitlyforActionMenu;
+    };
+}
