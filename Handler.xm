@@ -3,9 +3,9 @@
 
 #define errEq(x,y) [x isEqualToString:y]
 //#define alrt(x) UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Bitly for Action Menu" message:x delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil]; [alert show];[alert release];
-#define alrt(x) do { \
+#define alrt(z) do { \
 	NSDictionary *fields = @{(id)kCFUserNotificationAlertHeaderKey: @"Bitly for Action Menu", \
-		(id)kCFUserNotificationAlertMessageKey: x, \
+		(id)kCFUserNotificationAlertMessageKey: z, \
 		(id)kCFUserNotificationDefaultButtonTitleKey : @"Ok"}; \
 	CFUserNotificationRef notificationRef = CFUserNotificationCreate(kCFAllocatorDefault, 0, kCFUserNotificationNoteAlertLevel, NULL, (CFDictionaryRef)fields); \
 	CFRelease(notificationRef); \
@@ -21,10 +21,11 @@ static NSString *accessToken = prefs[@"accesstoken"];
 - (void)doBitlyForActionMenu:(id)sender {
 	// TODO: Implement Bitly for Action Menu Plugin
 	if(!accessToken||[accessToken isEqualToString:@""]){
-		alrt(@"Error! Make sure the Access Token is set in Settings");
+		NSLog(@"[BitlyForActionMenu] Access Token Invalid! (BEFORE getURL)");
+		alrt(@"Error! Make sure the Access Token is set correctly in Settings!");
 	}else{
 		[NSThread detachNewThreadSelector:@selector(getURL)
-		toTarget:self withObject:nil];
+			toTarget:self withObject:nil];
 	}
 }
 
@@ -42,6 +43,9 @@ static NSString *accessToken = prefs[@"accesstoken"];
 
 	NSString *urlString = [NSString stringWithFormat:@"https://api-ssl.bitly.com/v3/user/link_save?access_token=%@&longUrl=%@", accessToken, escapedText];
 
+	NSLog(@"[BitlyForActionMenu] escapedText: %@", escapedText);
+	//NSLog(@"[BitlyForActionMenu] urlString: %@", urlString);
+
 	NSURLRequest *request = [NSURLRequest
 		requestWithURL:[NSURL URLWithString:urlString]];
     NSData *response = [NSURLConnection
@@ -50,6 +54,8 @@ static NSString *accessToken = prefs[@"accesstoken"];
     NSString *resp = [[NSString alloc]
     	initWithData:response
     	encoding:NSUTF8StringEncoding];
+
+    NSLog(@"[BitlyForActionMenu] resp: %@", resp);
 
     NSString *link = @"";
     @try {
@@ -63,12 +69,14 @@ static NSString *accessToken = prefs[@"accesstoken"];
     	if(errEq(error, @"INVALID_URI")||
     		errEq(error, @"MISSING_ARG_LONGURL")){
 
+    		NSLog(@"[BitlyForActionMenu] Invalid Link!");
     		alrt(@"Error! Invalid Link!");
     		return;
 
     	}else if(errEq(error, @"INVALID_ACCESS_TOKEN")||
     		errEq(error, @"MISSING_ARG_ACCESS_TOKEN")){
 
+    		NSLog(@"[BitlyForActionMenu] Access Token Invalid!");
 			alrt(@"Error! Make sure the Access Token is set correctly in Settings!");
 			return;
 
@@ -79,6 +87,7 @@ static NSString *accessToken = prefs[@"accesstoken"];
     UIPasteboard *pb = [UIPasteboard generalPasteboard];
     pb.string = link;
 
+    NSLog(@"[BitlyForActionMenu] Copied!");
     alrt(@"Copied!");
 
 }
