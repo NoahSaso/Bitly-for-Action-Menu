@@ -1,7 +1,7 @@
 Package: com.sassoty.bitlyforactionmenu
 Name: Bitly For Action Menu
 Depends: actionmenu
-Version: 1.1
+Version: 1.2
 Architecture: iphoneos-arm
 Description: Quick bit.ly link shortener plugin for Action Menu
 Maintainer: Sassoty <sassoty@gmail.com>
