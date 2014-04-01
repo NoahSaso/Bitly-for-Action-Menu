@@ -1,3 +1,5 @@
+ARCHS = arm64 armv7s armv7
+
 include theos/makefiles/common.mk
 
 BUNDLE_NAME = BitlyforActionMenu
